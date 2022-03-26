@@ -1,0 +1,19 @@
+version: '2.2'
+services:
+  homebridge:
+    image: oznu/homebridge:ubuntu
+    container_name: homebridge-${HOMEBRIDGE_NAME}
+    restart: always
+    ports:
+      - ${HOMEBRIDGE_PORT}:8581/tcp
+    environment:
+      - TZ=Asia/Seoul
+      - PGID=${HOST_PGID}
+      - PUID=${HOST_PUID}
+      - HOMEBRIDGE_CONFIG_UI=1
+      - HOMEBRIDGE_CONFIG_UI_PORT=8581
+      - HOMEBRIDGE_NAME=${HOMEBRIDGE_NAME}
+      - HOMEBRIDGE_PORT=${HOMEBRIDGE_PORT}
+    volumes:
+      - ${HOME}/homebridges/homebridge-${HOMEBRIDGE_NAME}:/homebridge
+    mem_limit: 1g
